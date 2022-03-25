@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+struct  elem{
+	int value;
+	elem* next = nullptr;
+};
+
+//добавление в конец
+void push(elem*& stack, int value){
+	elem* newel = new elem;
+	newel->value = value;
+	if (!stack) {
+		stack = newel;
+		return;
+	}
+	newel->next = stack;
+	stack = newel;
+}
+
+// извлечь последний элемент
+bool pop(elem*& stack, int& value){
+	if (!stack) {
+		return false;
+	}
+		elem* cur = stack;
+		value = cur->value;
+		stack = cur->next;
+		delete cur;
+		return true;
+		
+}
+//вывод на экран
+void showStack(elem*& stack) {
+	while (stack) {
+		int value;
+		if (pop(stack, value)) {
+			cout << value<<" ";
+		}
+	}
+}
+int main() {
+	elem* stack=nullptr;
+	push(stack, 1);
+	push(stack, 2);
+	push(stack, 3);
+	showStack(stack);
+}
